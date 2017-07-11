@@ -83,6 +83,9 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
         email.setTitle(newArray[2], for: UIControlState())
         phone.setTitle("(\(phoneNumber1)) \(phoneNumber2)-\(phoneNumber3)", for: UIControlState())
         extention.text = "Ext: " + newArray[4]
+        
+        
+        navigationItem.title = name.text
     }
     
     @IBAction func emailLaunch(_ sender: AnyObject) {

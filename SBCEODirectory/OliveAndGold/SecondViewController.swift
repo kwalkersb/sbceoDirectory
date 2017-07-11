@@ -19,7 +19,8 @@ class SecondViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if cell != nil {
-            [self.performSegue(withIdentifier: "pushToThird", sender: cell)]
+            //[self.performSegue(withIdentifier: "pushToThird", sender: cell)]
+            // i commented this out cause yellow error message and it didnt seem like it was doing anything
         }
     }
     
@@ -55,6 +56,10 @@ class SecondViewController: UITableViewController {
             if cellName != nil {
                 controller.employeeName = cellName
             }
+            else{
+            }
+            
+            
         }
     }
 }

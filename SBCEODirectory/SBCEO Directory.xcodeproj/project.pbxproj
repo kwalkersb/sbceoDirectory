@@ -109,9 +109,9 @@
 			children = (
 				75C8F1DB1CBD75C100125AD4 /* AppDelegate.swift */,
 				75158E3D1CBEBBBB00882309 /* CellElements.swift */,
-				752EC68F1D19F62A007F1F6A /* CounselorViewController.swift */,
 				75C8F1DD1CBD75C100125AD4 /* TableOneViewController.swift */,
 				75282E771CCFCBB0006FCFA1 /* SecondViewController.swift */,
+				752EC68F1D19F62A007F1F6A /* CounselorViewController.swift */,
 				75C8F1DF1CBD75C100125AD4 /* Main.storyboard */,
 				75CAB16C1D1B017800C9884C /* LaunchScreen.storyboard */,
 				75C8F1E21CBD75C100125AD4 /* Assets.xcassets */,

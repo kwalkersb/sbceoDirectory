@@ -60,7 +60,6 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         } else {
             label.text = categories?[indexPath.row]
         }
-        
         return cell
     }
     
@@ -69,6 +68,14 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
             let secondCells = segue.destination as! SecondViewController
             let cellRow = sender as! UITableViewCell
             let rowNum = tableView.indexPath(for: cellRow)?.row
+            let categories = CellElements.sharedInstance.oneElementsArray
+
+            
+            if searchController.isActive && searchController.searchBar.text != "" {
+                secondCells.navigationItem.title = filteredEmployees[rowNum!]
+            } else {
+                secondCells.navigationItem.title = categories?[rowNum!]
+            }
             
             if searchController.isActive && searchController.searchBar.text != "" {
                 secondCells.cellName = filteredEmployees[rowNum!]
