@@ -25,17 +25,15 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
-        for a in employeesTemp {
-            for b in a! {
-                employees.append(b)
+        for catagories in employeesTemp {
+            for employee in catagories! {
+                employees.append(employee)
             }
         }
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredEmployees = employees.filter { results in
-            return results.lowercased().contains(searchText.lowercased())
-        }
+        filteredEmployees = employees.filter { $0.lowercased().contains(searchText.lowercased()) }
         tableView.reloadData()
     }
     
@@ -64,23 +62,31 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //here check if search bar is active and move to that view rather than
+        //  go to a new table view with only singular element
+        //make a new manual segue to push all the way to counselor view controller with employee info
+        //OR just make a new segue in the story board and do something fucky with it here and bypass the second vc
+        // -A
+        
         if segue.identifier == "pushToSecondView"{
             let secondCells = segue.destination as! SecondViewController
             let cellRow = sender as! UITableViewCell
             let rowNum = tableView.indexPath(for: cellRow)?.row
             let categories = CellElements.sharedInstance.oneElementsArray
 
-            
+            // sets title for the navigation bar in the next vc ---
             if searchController.isActive && searchController.searchBar.text != "" {
                 secondCells.navigationItem.title = filteredEmployees[rowNum!]
             } else {
                 secondCells.navigationItem.title = categories?[rowNum!]
             }
             
+            // tells what cells to use in seconf vc
             if searchController.isActive && searchController.searchBar.text != "" {
                 secondCells.cellName = filteredEmployees[rowNum!]
                 secondCells.cell = sender as! UITableViewCell
                 secondCells.employeeList = employees
+                print("uhhhhh\n\n\n\n\n\n\n\n")
             }
             else {
                 secondCells.cellArray = CellElements.sharedInstance.newArrays[rowNum!]

@@ -1,0 +1,21 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '9.0'
+
+target 'SBCEO Directory' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for SBCEO Directory
+    pod 'Firebase/Core'
+
+  target 'SBCEO DirectoryTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'SBCEO DirectoryUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
