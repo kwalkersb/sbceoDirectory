@@ -20,11 +20,10 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
     var mailComposer: MFMailComposeViewController!
 
     
-    @IBOutlet weak var job: UITextField!
-    @IBOutlet weak var name: UITextField!
+    @IBOutlet weak var job: UILabel!
     @IBOutlet weak var email: UIButton!
     @IBOutlet weak var phone: UIButton!
-    @IBOutlet weak var extention: UITextField!
+    @IBOutlet weak var ext: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,13 +78,12 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
         let phoneNumber3 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 6)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 9)]
         
         job.text = newArray[1]
-        name.text = newArray[0]
         email.setTitle(newArray[2], for: UIControlState())
         phone.setTitle("(\(phoneNumber1)) \(phoneNumber2)-\(phoneNumber3)", for: UIControlState())
-        extention.text = "Ext: " + newArray[4]
+        ext.text = "Ext: " + newArray[4]
         
         
-        navigationItem.title = name.text
+        navigationItem.title = newArray[0]
     }
     
     @IBAction func emailLaunch(_ sender: AnyObject) {
