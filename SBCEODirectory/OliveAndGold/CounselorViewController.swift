@@ -9,6 +9,7 @@ import MessageUI
 
 class CounselorViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
+    // why the fuck do they need all of these??????
     var tempObjectArray: [[[String]?]]!
     var objectArray: [[[String]?]]!
     var employeeName: String!
@@ -17,9 +18,10 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
     var firstTableNum : Int!
     var rowNum: Int!
     var stringThing: String!
+    
     var mailComposer: MFMailComposeViewController!
 
-    
+    // literally only need these and the phone and email handlers
     @IBOutlet weak var job: UILabel!
     @IBOutlet weak var email: UIButton!
     @IBOutlet weak var phone: UIButton!
@@ -60,6 +62,7 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
         }
         
         if employeeName != nil {
+            print("if we get here i, A, actually deserve death")
             tempObjectArray = CellElements.sharedInstance.tempObjectArray
             for employeeObjectList in tempObjectArray {
                 for employeeObject in employeeObjectList {
@@ -84,6 +87,8 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
         
         
         navigationItem.title = newArray[0]
+        
+        print(newArray)
     }
     
     @IBAction func emailLaunch(_ sender: AnyObject) {

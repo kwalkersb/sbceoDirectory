@@ -53,13 +53,6 @@ class SecondViewController: UITableViewController {
             
             controller.firstTableNum = firstTableNum
             controller.rowNum = rowNum
-            if cellName != nil {
-                controller.employeeName = cellName
-            }
-            else{
-            }
-            
-            
         }
     }
 }

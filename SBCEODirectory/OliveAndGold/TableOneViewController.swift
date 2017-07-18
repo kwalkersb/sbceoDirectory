@@ -61,37 +61,40 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         return cell
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //here check if search bar is active and move to that view rather than
-        //  go to a new table view with only singular element
-        //make a new manual segue to push all the way to counselor view controller with employee info
-        //OR just make a new segue in the story board and do something fucky with it here and bypass the second vc
-        // -A
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        //if search bar isnt empty skip the second vc
+        if searchController.isActive && searchController.searchBar.text != "" {
+            performSegue(withIdentifier: "pushToEmployeeView", sender: tableView.cellForRow(at: indexPath))
+        }
+        // if search bar is empty go the usual way
+        else{
+            performSegue(withIdentifier: "pushToSecondView", sender: tableView.cellForRow(at: indexPath))
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("in prepare for segue")
+        //check which segue it is and give info as necessary
         if segue.identifier == "pushToSecondView"{
             let secondCells = segue.destination as! SecondViewController
-            let cellRow = sender as! UITableViewCell
-            let rowNum = tableView.indexPath(for: cellRow)?.row
+//            let cellRow = sender as! UITableViewCell
+            let rowNum = tableView.indexPath(for: sender as! UITableViewCell)?.row
             let categories = CellElements.sharedInstance.oneElementsArray
 
-            // sets title for the navigation bar in the next vc ---
-            if searchController.isActive && searchController.searchBar.text != "" {
-                secondCells.navigationItem.title = filteredEmployees[rowNum!]
-            } else {
-                secondCells.navigationItem.title = categories?[rowNum!]
-            }
-            
-            // tells what cells to use in seconf vc
-            if searchController.isActive && searchController.searchBar.text != "" {
-                secondCells.cellName = filteredEmployees[rowNum!]
-                secondCells.cell = sender as! UITableViewCell
-                secondCells.employeeList = employees
-                print("uhhhhh\n\n\n\n\n\n\n\n")
-            }
-            else {
-                secondCells.cellArray = CellElements.sharedInstance.newArrays[rowNum!]
-            }
+            secondCells.navigationItem.title = categories?[rowNum!]
+            secondCells.cellArray = CellElements.sharedInstance.newArrays[rowNum!]
             secondCells.firstTableNum = rowNum
+        }
+        else if segue.identifier == "pushToEmployeeView"{
+            //fix this to go to the next view, I really dont know how
+            let controller = segue.destination as! CounselorViewController
+            let rowNum = tableView.indexPath(for: sender as! UITableViewCell)?.row
+            
+            controller.employeeName = filteredEmployees[rowNum!]
+        }
+        else{
+            print("invalid sague in tableOneVC")
         }
     }
 }
