@@ -12,6 +12,7 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
     
     let searchController = UISearchController(searchResultsController: nil)
     
+    
     var employees = [String!]()
     var employeesTemp = CellElements.sharedInstance.newArrays
     
@@ -102,5 +103,7 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
 extension TableOneViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
+        
+        //self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
     }
 }
