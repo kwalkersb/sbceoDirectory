@@ -16,6 +16,7 @@ class SecondViewController: UITableViewController {
     var firstTableNum : Int!
     var rowNum: Int!
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if cell != nil {
@@ -53,6 +54,14 @@ class SecondViewController: UITableViewController {
             
             controller.firstTableNum = firstTableNum
             controller.rowNum = rowNum
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
+        }
+        
+       
         }
     }
-}
+
+
