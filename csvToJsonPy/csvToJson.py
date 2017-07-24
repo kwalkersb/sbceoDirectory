@@ -2,6 +2,7 @@ import csv, json
 
 employeeList = {}  # key is full name and the value is a list of other information
 
+
 with open("sbceo_directory2017.csv", "rb") as file:
 	reader = csv.reader(file)
 	# contains name
@@ -9,7 +10,7 @@ with open("sbceo_directory2017.csv", "rb") as file:
 	
 	i = 0
 	for row in reader:
-		if i == 0:
+		if i == 0: # to skip the first line
 			i+=1
 			continue
 		key = hex(i)
@@ -21,8 +22,14 @@ with open("sbceo_directory2017.csv", "rb") as file:
 		name = "%s %s" %(row[1],row[0])
 		division = row[2]
 		job = row [3]
-		ext = row[4] #this is going to be an issue spot, can fix later; empty ext or phone number
+		ext = row[4] 
 		email = row[5]
+		
+		#
+		if len(ext) == 0:
+			ext = "not available"
+		
+		
 		
 		employeeList[division][key] = {"name" : name, "job" : job, "ext" : ext, "email" : email}
 		
@@ -33,7 +40,12 @@ with open("sbceo_directory2017.csv", "rb") as file:
 
 # then change dict into json
 
-print(json.dumps(employeeList, indent = 4))
+
+data = {}
+data["version"] = "0"
+data["employeeList"] = employeeList
+
+print(json.dumps(data, indent = 4))
 
 with open('sbceoData.json', 'w') as file:
-     json.dump(employeeList, file)
+     json.dump(data, file)
