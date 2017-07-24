@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-struct employeeData {
+struct EmployeeData {
     let name: String
     let division: String
     let job: String
