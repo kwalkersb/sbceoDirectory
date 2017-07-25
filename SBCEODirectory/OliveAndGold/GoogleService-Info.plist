@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>790686629123-r8shj6h81m8kfdst8cj9cl1vjiu4knje.apps.googleusercontent.com</string>
+	<string>291878953057-vjuptuifnusgos7b2sgf66l3ojdj3ga2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.790686629123-r8shj6h81m8kfdst8cj9cl1vjiu4knje</string>
+	<string>com.googleusercontent.apps.291878953057-vjuptuifnusgos7b2sgf66l3ojdj3ga2</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAai-q3NWqpQTJ0IVzPVsTSSetOHNeyvbM</string>
+	<string>AIzaSyCCpGZLnkVWPTDRHyjJQG3GWqRb7MVbYOc</string>
 	<key>GCM_SENDER_ID</key>
-	<string>790686629123</string>
+	<string>291878953057</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>ah.firebase.gettingstarted</string>
+	<string>com.directory.sbceo</string>
 	<key>PROJECT_ID</key>
-	<string>fir-learning-proj</string>
+	<string>sbceo-employee-directory</string>
 	<key>STORAGE_BUCKET</key>
-	<string>fir-learning-proj.appspot.com</string>
+	<string>sbceo-employee-directory.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:790686629123:ios:48c22f4ad3befcd8</string>
+	<string>1:291878953057:ios:f26fe5aebd00e1a6</string>
 	<key>DATABASE_URL</key>
-	<string>https://fir-learning-proj.firebaseio.com</string>
+	<string>https://sbceo-employee-directory.firebaseio.com</string>
 </dict>
 </plist>
