@@ -9,7 +9,7 @@ import MessageUI
 
 class CounselorViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
-    // why the fuck do they need all of these??????
+    // why do they need all of these??????
     var tempObjectArray: [[[String]?]]!
     var objectArray: [[[String]?]]!
     var employeeName: String!
@@ -21,7 +21,6 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
     
     var mailComposer: MFMailComposeViewController!
 
-    // literally only need these and the phone and email handlers
     @IBOutlet weak var job: UILabel!
     @IBOutlet weak var email: UIButton!
     @IBOutlet weak var phone: UIButton!
@@ -53,16 +52,13 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
                 case 6:
                     fillingArray = CellElements.sharedInstance.cellD6
                     break;
-                case 7:
-                    fillingArray = CellElements.sharedInstance.cellD7
-                    break;
                 default:
+                    print("defaulted in counselorVC switch statement")
                     fillingArray = CellElements.sharedInstance.cellD0
             }
         }
         
         if employeeName != nil {
-            print("if we get here i, A, actually deserve death")
             tempObjectArray = CellElements.sharedInstance.tempObjectArray
             for employeeObjectList in tempObjectArray {
                 for employeeObject in employeeObjectList {
@@ -76,19 +72,23 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
             newArray = fillingArray[rowNum]
         }
         
-        let phoneNumber1 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 0)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 2)]
-        let phoneNumber2 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 3)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 5)]
-        let phoneNumber3 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 6)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 9)]
+        print("\n\n", newArray, "\n\n")
+        
+//        let phoneNumber1 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 0)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 2)]
+//        let phoneNumber2 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 3)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 5)]
+//        let phoneNumber3 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 6)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 9)]
         
         job.text = newArray[1]
         email.setTitle(newArray[2], for: UIControlState())
-        phone.setTitle("(\(phoneNumber1)) \(phoneNumber2)-\(phoneNumber3)", for: UIControlState())
-        ext.text = "Ext: " + newArray[4]
+        phone.setTitle("will totally deal with this later", for: UIControlState())
+        //phone.setTitle("(\(phoneNumber1)) \(phoneNumber2)-\(phoneNumber3)", for: UIControlState())
+        //ext.text = "Ext: " + newArray[4]
+        ext.text = "shhhhhh"
         
         
         navigationItem.title = newArray[0]
         
-        print(newArray)
+        
     }
     
     @IBAction func emailLaunch(_ sender: AnyObject) {

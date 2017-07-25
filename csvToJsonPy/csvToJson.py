@@ -31,7 +31,7 @@ with open("sbceo_directory2017.csv", "rb") as file:
 		
 		
 		
-		employeeList[division][key] = {"name" : name, "job" : job, "ext" : ext, "email" : email}
+		employeeList[division][key] = {"name" : name, "job" : job, "ext" : ext, "email" : email, "division" : division}
 		
 		
 		i += 1

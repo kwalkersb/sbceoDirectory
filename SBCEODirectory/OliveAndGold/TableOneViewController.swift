@@ -75,7 +75,6 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("in prepare for segue")
         //check which segue it is and give info as necessary
         if segue.identifier == "pushToSecondView"{
             let secondCells = segue.destination as! SecondViewController

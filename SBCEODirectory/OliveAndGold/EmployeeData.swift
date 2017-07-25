@@ -18,6 +18,9 @@ struct EmployeeData {
     let reference: DatabaseReference?
     let key: String
     
+    let data: [String]
+//    [name,job,email,8059644710(which is the direct line or something),then ext]
+    
     init(name n: String, division d: String, job j: String, ext ex: String, email e: String, key k: String) {
         name = n
         division = d
@@ -26,6 +29,8 @@ struct EmployeeData {
         email = e
         reference = nil
         key = k
+        
+        data = [name, job, email, "8059644710",ext]
     }
     
     init(snapshot: DataSnapshot) {
@@ -37,6 +42,8 @@ struct EmployeeData {
         ext = snapshotValue["ext"] as! String
         email = snapshotValue["email"] as! String
         reference = snapshot.ref
+        
+        data = [name, job, email, "8059644710",ext]
     }
     
     func toAnyObject() -> Any {
