@@ -23,6 +23,8 @@ class SecondViewController: UITableViewController {
             //[self.performSegue(withIdentifier: "pushToThird", sender: cell)]
             // i commented this out cause yellow error message and it didnt seem like it was doing anything
         }
+        
+        print(EmployeeList.sharedInstance.employeeDictionary)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

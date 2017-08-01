@@ -46,6 +46,18 @@ struct EmployeeData {
         data = [name, job, email, "8059644710",ext]
     }
     
+    init(dictionary: [String: AnyObject], valueKey: String) {
+        key = valueKey
+        name = dictionary["name"] as! String
+        division = dictionary["division"] as! String
+        job = dictionary["job"] as! String
+        ext = dictionary["ext"] as! String
+        email = dictionary["email"] as! String
+        reference = nil
+        
+        data = [name, job, email, "8059644710", ext]
+    }
+    
     func toAnyObject() -> Any {
         return [
             "name": name,
