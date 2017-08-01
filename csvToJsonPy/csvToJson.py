@@ -18,7 +18,7 @@ with open("sbceo_directory.csv", "rb") as file:
 			key = "%s00%s"%(key[:2], key[-1:])
 		elif len(key) == 4:
 			key = "%s0%s"%(key[:2], key[-2:])
-		# keys are 5 digit hex in case of duplicate first last name
+		# keys are 5 digit hex in case of duplicate first last name=
 		name = "%s %s" %(row[1],row[0])
 		division = row[2]
 		job = row [3]
