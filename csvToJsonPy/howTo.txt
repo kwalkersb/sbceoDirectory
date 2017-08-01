@@ -1,0 +1,7 @@
+How to use the python csv converter:
+1: open terminal and change directories to this folder.
+	make sure the csv file and the .py file are both in the directory
+2: in terminal type:
+	python csvToJson.py
+  and hit enter to run the script
+the script converts the csv and saves a .json file in the directory with all the converted data.

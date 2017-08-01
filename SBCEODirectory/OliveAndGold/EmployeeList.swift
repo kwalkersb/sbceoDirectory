@@ -30,7 +30,9 @@ class EmployeeList {
                             subsectionEmployees.append(employeeObject)
                             name = "pass"
                             self.doSomethingAtTheEndOfTheClosureToAllowTimeForVariableSetting()
+                            print("avery")
                         })
+                        print("sucks\nlarge\npengoli")
                     }
                     print(name)
                     self.employeeDictionary[subsection.key] = subsectionEmployees

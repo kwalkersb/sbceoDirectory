@@ -3,7 +3,7 @@ import csv, json
 employeeList = {}  # key is full name and the value is a list of other information
 
 
-with open("sbceo_directory2017.csv", "rb") as file:
+with open("sbceo_directory.csv", "rb") as file:
 	reader = csv.reader(file)
 	# contains name
 	employeeList = {"Superintendent" : {}, "Deputy Superintendent" : {}, "Administrative Services" : {}, "Curriculum and Instruction" : {}, "Educational Services" : {}, "Human Resources" : {}, "Special Education" : {}}
@@ -25,7 +25,8 @@ with open("sbceo_directory2017.csv", "rb") as file:
 		ext = row[4] 
 		email = row[5]
 		
-		#
+		#this checks the extension and puts in a separate value if the column is empty
+		# add in more later for the other exceptions
 		if len(ext) == 0:
 			ext = "not available"
 		
@@ -45,6 +46,7 @@ data = {}
 data["version"] = "0"
 data["employeeList"] = employeeList
 
+#this prints out all the data in terminal as a dictionary 
 print(json.dumps(data, indent = 4))
 
 with open('sbceoData.json', 'w') as file:

@@ -15,7 +15,7 @@ class CellElements {
     var tempObjectArray: [[[String]?]]!
     
     //the employeeList singleton
-    let employeeList = EmployeeList.sharedInstance.employeeListArray
+    let employeeList = EmployeeList.sharedInstance.employeeDictionary
     
     var cell0: [String]!
     var cell1: [String]!
@@ -39,7 +39,7 @@ class CellElements {
         oneElementsArray = ["Superintendent", "Deputy Superintendent", "Administrative Services", "Curriculum and Instruction", "Education Services", "Human Resources", "Special Education"]
         
         // cell# are used to fill out table views
-        // cellD# is used to fill out 
+        // cellD# is used to fill out
         
         for ed in employeeList["Superintendent"]!{
             cell0.append(ed.name)
