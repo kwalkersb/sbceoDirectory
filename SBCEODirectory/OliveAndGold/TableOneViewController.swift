@@ -14,14 +14,13 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
     
     
     var employees = [String!]()
-    var employeesTemp = CellElements.sharedInstance.newArrays
+    var employeesTemp = EmployeeList.sharedInstance.newArrays
     
     var filteredEmployees = [String!]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let myFuckingCock = EmployeeList.sharedInstance
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
@@ -48,18 +47,18 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         if searchController.isActive && searchController.searchBar.text != "" {
             return filteredEmployees.count
         }
-        return CellElements.sharedInstance.oneElementsArray.count
+        return EmployeeList.sharedInstance.oneElementsArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ElementRow", for: indexPath)
         let label = cell.viewWithTag(11) as! UILabel
-        let categories = CellElements.sharedInstance.oneElementsArray
+        let categories = EmployeeList.sharedInstance.oneElementsArray
         
         if searchController.isActive && searchController.searchBar.text != "" {
             label.text = filteredEmployees[indexPath.row]
         } else {
-            label.text = categories?[indexPath.row]
+            label.text = categories[indexPath.row]
         }
         return cell
     }
@@ -82,10 +81,10 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
             let secondCells = segue.destination as! SecondViewController
 //            let cellRow = sender as! UITableViewCell
             let rowNum = tableView.indexPath(for: sender as! UITableViewCell)?.row
-            let categories = CellElements.sharedInstance.oneElementsArray
+            let categories = EmployeeList.sharedInstance.oneElementsArray
 
-            secondCells.navigationItem.title = categories?[rowNum!]
-            secondCells.cellArray = CellElements.sharedInstance.newArrays[rowNum!]
+            secondCells.navigationItem.title = categories[rowNum!]
+            secondCells.cellArray = EmployeeList.sharedInstance.newArrays[rowNum!]
             secondCells.firstTableNum = rowNum
         }
         else if segue.identifier == "pushToEmployeeView"{

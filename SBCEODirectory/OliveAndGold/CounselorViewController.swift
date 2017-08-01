@@ -32,34 +32,34 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
         if employeeName == nil {
             switch firstTableNum{
                 case 0:
-                    fillingArray = CellElements.sharedInstance.cellD0
+                    fillingArray = EmployeeList.sharedInstance.cellD0
                     break;
                 case 1:
-                    fillingArray = CellElements.sharedInstance.cellD1
+                    fillingArray = EmployeeList.sharedInstance.cellD1
                     break;
                 case 2:
-                    fillingArray = CellElements.sharedInstance.cellD2
+                    fillingArray = EmployeeList.sharedInstance.cellD2
                     break;
                 case 3:
-                    fillingArray = CellElements.sharedInstance.cellD3
+                    fillingArray = EmployeeList.sharedInstance.cellD3
                     break;
                 case 4:
-                    fillingArray = CellElements.sharedInstance.cellD4
+                    fillingArray = EmployeeList.sharedInstance.cellD4
                     break;
                 case 5:
-                    fillingArray = CellElements.sharedInstance.cellD5
+                    fillingArray = EmployeeList.sharedInstance.cellD5
                     break;
                 case 6:
-                    fillingArray = CellElements.sharedInstance.cellD6
+                    fillingArray = EmployeeList.sharedInstance.cellD6
                     break;
                 default:
                     print("defaulted in counselorVC switch statement")
-                    fillingArray = CellElements.sharedInstance.cellD0
+                    fillingArray = EmployeeList.sharedInstance.cellD0
             }
         }
         
         if employeeName != nil {
-            tempObjectArray = CellElements.sharedInstance.tempObjectArray
+            tempObjectArray = EmployeeList.sharedInstance.tempObjectArray
             for employeeObjectList in tempObjectArray {
                 for employeeObject in employeeObjectList {
                     if employeeName == employeeObject?[0] {
