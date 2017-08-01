@@ -22,42 +22,24 @@ class EmployeeList {
             if let dictionary = snapshot.value as? [String: [String: AnyObject]] {
                 for subsection in dictionary {
                     var subsectionEmployees: [EmployeeData] = []
-                    var name: String = "fail"
                     
                     for item in subsection.value {
                         self.ref.child("employeeList/\(subsection.key)/\(item.key)").observeSingleEvent(of: .value, with: { employeeSnapshot in
                             let employeeObject = EmployeeData(snapshot: employeeSnapshot)
                             subsectionEmployees.append(employeeObject)
-                            name = "pass"
-                            self.doSomethingAtTheEndOfTheClosureToAllowTimeForVariableSetting()
                             print("avery")
+                            self.employeeDictionary[subsection.key] = subsectionEmployees
+                            //print(self.employeeDictionary) This print statement prints out the expected data every time another employee is appended
                         })
                         print("sucks\nlarge\npengoli")
                     }
-                    print(name)
-                    self.employeeDictionary[subsection.key] = subsectionEmployees
                 }
             }
+            //print(self.employeeDictionary) This print statement prints an empty data structure
         })
-        print("avri stupid")
-        print(employeeDictionary)
     }
     
-    func doSomethingAtTheEndOfTheClosureToAllowTimeForVariableSetting() {
-        var num = 0
-        num = 1
-        num = 0
-        num = 1
-        num = 0
-        num = 1
-        num = 0
-        num = 1
-        num = 0
-        num = 1
-        num = 0
-        num = 1
-        num = 0
-        num = 1
-        num = 0
+    func appendData(employeeObject employee: EmployeeData, subsectionArray subsection: inout [EmployeeData]){
+        subsection.append(employee)
     }
 }
