@@ -21,6 +21,8 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let myFuckingCock = EmployeeList.sharedInstance
+        
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
