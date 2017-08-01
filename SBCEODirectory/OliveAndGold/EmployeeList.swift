@@ -12,34 +12,39 @@ import Firebase
 class EmployeeList {
     static let sharedInstance = EmployeeList()
     var employeeDictionary: [String: [EmployeeData]]
+    var subsectionTemp: [EmployeeData]
     var ref: DatabaseReference!
     
     private init() {
         employeeDictionary = [String: [EmployeeData]]()
+        subsectionTemp = [EmployeeData]()
         ref = Database.database().reference()
         
         ref.child("employeeList").observeSingleEvent(of: .value, with: { snapshot in
-            if let dictionary = snapshot.value as? [String: [String: AnyObject]] {
-                for subsection in dictionary {
-                    var subsectionEmployees: [EmployeeData] = []
-                    
-                    for item in subsection.value {
-                        self.ref.child("employeeList/\(subsection.key)/\(item.key)").observeSingleEvent(of: .value, with: { employeeSnapshot in
-                            let employeeObject = EmployeeData(snapshot: employeeSnapshot)
-                            subsectionEmployees.append(employeeObject)
-                            print("avery")
-                            self.employeeDictionary[subsection.key] = subsectionEmployees
-                            //print(self.employeeDictionary) This print statement prints out the expected data every time another employee is appended
-                        })
-                        print("sucks\nlarge\npengoli")
-                    }
-                }
+            if let dictionary = snapshot.value as? [String: [String:AnyObject]] {
+                self.handleEmployeeListWithValue(snapshot: dictionary)
             }
-            //print(self.employeeDictionary) This print statement prints an empty data structure
         })
+        
+        print(employeeDictionary["Superintendent"]?[0].name)
     }
     
-    func appendData(employeeObject employee: EmployeeData, subsectionArray subsection: inout [EmployeeData]){
-        subsection.append(employee)
+    func handleEmployeeListWithValue(snapshot: [String: [String: AnyObject]]) {
+        for subsection in snapshot {
+            subsectionTemp = []
+            
+            for item in subsection.value {
+                let employeeObject = EmployeeData(dictionary: item.value as! [String : AnyObject], valueKey: item.key)
+                subsectionTemp.append(employeeObject)
+            }
+            
+            employeeDictionary[subsection.key] = subsectionTemp
+        }
+    }
+    
+    func appendToSubsectionTempWith(employeeDict: [String: AnyObject], itemKey: String) {
+        let employeeObject = EmployeeData(dictionary: employeeDict, valueKey: itemKey)
+        print(employeeObject.name)
+        subsectionTemp.append(employeeObject)
     }
 }
