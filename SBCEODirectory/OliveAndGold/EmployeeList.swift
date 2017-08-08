@@ -10,10 +10,11 @@ import Foundation
 import Firebase
 
 class EmployeeList {
+    let defaults = UserDefaults.standard
     static let sharedInstance = EmployeeList()
     var employeeDictionary: [String: [EmployeeData]]
     var subsectionTemp: [EmployeeData]
-    var ref: DatabaseReference!
+    var ref: DatabaseReference?
     
     //copying their data accessors so we dont have to change their crap
     let oneElementsArray: [String] =  ["Superintendent", "Deputy Superintendent", "Administrative Services", "Curriculum and Instruction", "Education Services", "Human Resources", "Special Education"] // Departments
@@ -42,17 +43,20 @@ class EmployeeList {
         employeeDictionary = [String: [EmployeeData]]()
         subsectionTemp = [EmployeeData]()
         ref = Database.database().reference()
+        ref = nil
         
-        ref.child("employeeList").observeSingleEvent(of: .value, with: { snapshot in
-            if let dictionary = snapshot.value as? [String: [String:AnyObject]] {
-                self.handleEmployeeListWithValue(snapshot: dictionary)
-            }
-        })
-        
-        print(employeeDictionary["Superintendent"]?[0].name)
+        if let reference = ref {
+            reference.child("employeeList").observeSingleEvent(of: .value, with: { snapshot in
+                if let dictionary = snapshot.value as? [String: [String:AnyObject]] {
+                    self.handleEmployeeList(with: dictionary)
+                }
+            })
+        } else {
+            self.handleEmployeeListWithLocalData()
+        }
     }
     
-    func handleEmployeeListWithValue(snapshot: [String: [String: AnyObject]]) {
+    func handleEmployeeList(with snapshot: [String: [String: AnyObject]]) {
         for subsection in snapshot {
             subsectionTemp = []
             
@@ -64,11 +68,30 @@ class EmployeeList {
             employeeDictionary[subsection.key] = subsectionTemp
         }
         
-        print(EmployeeList.sharedInstance.employeeDictionary)
-        // cell# are used to fill out table views
-        // cellD# is used to fill out
+        let data = NSKeyedArchiver.archivedData(withRootObject: employeeDictionary)
+        defaults.set(data, forKey: "employeeDictionary")
+        
         let employeeList = EmployeeList.sharedInstance.employeeDictionary
         
+        populateCells(with: employeeList)
+    }
+    
+    func handleEmployeeListWithLocalData() {
+        guard let archivedData = UserDefaults.standard.value(forKey: "employeeDictionary") as? Data
+            else{return}
+        guard let unarchivedDictionary = NSKeyedUnarchiver.unarchiveObject(with: archivedData) as? [String: [EmployeeData]]
+            else{return}
+        
+        populateCells(with: unarchivedDictionary)
+    }
+    
+    func appendToSubsectionTempWith(employeeDict: [String: AnyObject], itemKey: String) {
+        let employeeObject = EmployeeData(dictionary: employeeDict, valueKey: itemKey)
+        print(employeeObject.name)
+        subsectionTemp.append(employeeObject)
+    }
+    
+    func populateCells(with employeeList: [String: [EmployeeData]]) {
         for ed in employeeList["Superintendent"]!{
             cell0.append(ed.name)
             cellD0.append(ed.data)
@@ -100,11 +123,5 @@ class EmployeeList {
         
         newArrays = [cell0, cell1, cell2, cell3, cell4, cell5, cell6]
         tempObjectArray = [cellD0, cellD1, cellD2, cellD3, cellD4, cellD5, cellD6]
-    }
-    
-    func appendToSubsectionTempWith(employeeDict: [String: AnyObject], itemKey: String) {
-        let employeeObject = EmployeeData(dictionary: employeeDict, valueKey: itemKey)
-        print(employeeObject.name)
-        subsectionTemp.append(employeeObject)
     }
 }

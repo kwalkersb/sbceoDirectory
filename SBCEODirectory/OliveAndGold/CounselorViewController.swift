@@ -72,7 +72,7 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
             newArray = fillingArray[rowNum]
         }
         
-        print("\n\n", newArray, "\n\n")
+        //print("\n\n", newArray, "\n\n")
         
 //        let phoneNumber1 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 0)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 2)]
 //        let phoneNumber2 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 3)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 5)]
