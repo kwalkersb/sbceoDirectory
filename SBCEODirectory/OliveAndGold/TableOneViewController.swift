@@ -10,6 +10,7 @@ import MessageUI
 
 class TableOneViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     
+    
     let searchController = UISearchController(searchResultsController: nil)
     
     
@@ -43,6 +44,7 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         super.didReceiveMemoryWarning()
     }
     
+    // designates the length of the table view, ie. number of cells
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         if searchController.isActive && searchController.searchBar.text != "" {
             return filteredEmployees.count
@@ -50,6 +52,7 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         return EmployeeList.sharedInstance.oneElementsArray.count
     }
     
+    // fills the cells with proper label or somthing like that
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ElementRow", for: indexPath)
         let label = cell.viewWithTag(11) as! UILabel
@@ -63,8 +66,8 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         return cell
     }
     
+    // because of the search, when a row is tapped it needs different instructions to get to the next viewController
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         //if search bar isnt empty skip the second vc
         if searchController.isActive && searchController.searchBar.text != "" {
             performSegue(withIdentifier: "pushToEmployeeView", sender: tableView.cellForRow(at: indexPath))
@@ -75,11 +78,11 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         }
     }
     
+    // see what segue is going and then appropriatly set values into the new viewControler
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //check which segue it is and give info as necessary
         if segue.identifier == "pushToSecondView"{
             let secondCells = segue.destination as! SecondViewController
-//            let cellRow = sender as! UITableViewCell
             let rowNum = tableView.indexPath(for: sender as! UITableViewCell)?.row
             let categories = EmployeeList.sharedInstance.oneElementsArray
 
@@ -88,7 +91,6 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
             secondCells.firstTableNum = rowNum
         }
         else if segue.identifier == "pushToEmployeeView"{
-            //fix this to go to the next view, I really dont know how
             let controller = segue.destination as! CounselorViewController
             let rowNum = tableView.indexPath(for: sender as! UITableViewCell)?.row
             
@@ -104,6 +106,5 @@ extension TableOneViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
         
-        //self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
     }
 }

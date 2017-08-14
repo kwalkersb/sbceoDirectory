@@ -9,7 +9,7 @@ import MessageUI
 
 class CounselorViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
-    // why do they need all of these??????
+    
     var tempObjectArray: [[[String]?]]!
     var objectArray: [[[String]?]]!
     var employeeName: String!
@@ -29,6 +29,9 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //fills the properties
+        // multiple differnt ways because of search and normal transition give different data
+        // it was already like this from last yeay (2016) so i dont really know whi it was done this way, but hey, it works
         if employeeName == nil {
             switch firstTableNum{
                 case 0:
@@ -57,7 +60,6 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
                     fillingArray = EmployeeList.sharedInstance.cellD0
             }
         }
-        
         if employeeName != nil {
             tempObjectArray = EmployeeList.sharedInstance.tempObjectArray
             for employeeObjectList in tempObjectArray {
@@ -72,12 +74,13 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
             newArray = fillingArray[rowNum]
         }
         
-        //print("\n\n", newArray, "\n\n")
+        //sets the phone number to the screen and does the calling when tapped thing but currently dysfunctional due to poor data given to us
         
 //        let phoneNumber1 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 0)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 2)]
 //        let phoneNumber2 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 3)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 5)]
 //        let phoneNumber3 = newArray[3][newArray[3].characters.index(newArray[3].startIndex, offsetBy: 6)...newArray[3].characters.index(newArray[3].startIndex, offsetBy: 9)]
         
+        // sets the rest of the properties to storyboard elements
         job.text = newArray[1]
         email.setTitle(newArray[2], for: UIControlState())
         phone.setTitle("will totally deal with this later", for: UIControlState())
@@ -87,14 +90,13 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
         
         
         navigationItem.title = newArray[0]
-        
-        
     }
     
+    // action for when email is tapped you get a popup thing to send an email
     @IBAction func emailLaunch(_ sender: AnyObject) {
         configureMail(newArray[2])
     }
-
+    // similar to above but for the phone and calling
     @IBAction func phoneLaunch(_ sender: AnyObject) {
         callNumber("\(newArray[3])", extensionNum: "\(newArray[4])")
     }
@@ -108,6 +110,7 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
         }
     }
     
+    // sets up the mail thing with popups and whatnot; not super sure how it works
     func configureMail(_ email: String){
         let sendTo = email
         mailComposer = MFMailComposeViewController()
