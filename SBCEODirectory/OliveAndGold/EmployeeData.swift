@@ -10,6 +10,7 @@ import Foundation
 import Firebase
 
 class EmployeeData: NSObject, NSCoding {
+    // All pieces of data tied to an employee
     let name: String
     let division: String
     let job: String
@@ -21,6 +22,7 @@ class EmployeeData: NSObject, NSCoding {
     let data: [String]
 //    [name,job,email,8059644710(which is the direct line or something),then ext]
     
+    // Keys tied to each property instead of using literals all over code
     struct PropertyKeys {
         static let nameKey = "name"
         static let divisionKey = "division"
@@ -31,6 +33,7 @@ class EmployeeData: NSObject, NSCoding {
         static let keyKey = "key"
     }
     
+    // Used for initializing from direct input of all properties
     init(name n: String, division d: String, job j: String, ext ex: String, email e: String, key k: String) {
         name = n
         division = d
@@ -43,6 +46,7 @@ class EmployeeData: NSObject, NSCoding {
         data = [name, job, email, "8059644710",ext]
     }
     
+    // Used for initializing directly from snapshot
     init(snapshot: DataSnapshot) {
         key = snapshot.key
         let snapshotValue = snapshot.value as! [String: AnyObject]
@@ -56,6 +60,7 @@ class EmployeeData: NSObject, NSCoding {
         data = [name, job, email, "8059644710",ext]
     }
     
+    // Used for initializing from dictionary
     init(dictionary: [String: AnyObject], valueKey: String) {
         key = valueKey
         name = dictionary[PropertyKeys.nameKey] as! String
@@ -68,6 +73,7 @@ class EmployeeData: NSObject, NSCoding {
         data = [name, job, email, "8059644710", ext]
     }
     
+    // Used to pass an EmployeeData object into the firebase database (not actaully used anywhere in current code)
     func toAnyObject() -> Any {
         return [
             PropertyKeys.nameKey: name,
@@ -78,6 +84,7 @@ class EmployeeData: NSObject, NSCoding {
         ]
     }
     
+    // Required method for any class conforming to NSCoding/NSObject. Used when initializing object from locally stored persistent data
     required convenience init?(coder aDecoder: NSCoder) {
         let name = aDecoder.decodeObject(forKey: PropertyKeys.nameKey) as! String
         let division = aDecoder.decodeObject(forKey: PropertyKeys.divisionKey) as! String
@@ -89,6 +96,7 @@ class EmployeeData: NSObject, NSCoding {
         self.init(name: name, division: division, job: job, ext: ext, email: email, key: key)
     }
     
+    // Required method for any class conforming to NSCoding/NSObject. Used when app closes to encode object into local storage for persistence
     func encode(with aCoder: NSCoder) {
         aCoder.encode(name, forKey: PropertyKeys.nameKey)
         aCoder.encode(division, forKey: PropertyKeys.divisionKey)
