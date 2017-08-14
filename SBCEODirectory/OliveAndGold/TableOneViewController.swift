@@ -14,10 +14,12 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
     let searchController = UISearchController(searchResultsController: nil)
     
     
-    var employees = [String!]()
+    var allEmployees = [String!]()
     var employeesTemp = EmployeeList.sharedInstance.newArrays
     
     var filteredEmployees = [String!]()
+    
+    var didGetAllEmployees = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,15 +30,22 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
-        for catagories in employeesTemp {
-            for employee in catagories! {
-                employees.append(employee)
-            }
-        }
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredEmployees = employees.filter { $0.lowercased().contains(searchText.lowercased()) }
+        // for some reason when we first grabbed the new arrays from the shared instance it was just empty so we need to regrab it here and then we can properly fill allEmployees so the search can work properly
+        if !didGetAllEmployees {
+            employeesTemp = EmployeeList.sharedInstance.newArrays
+            for division in employeesTemp {
+                for employee in division! {
+                    allEmployees.append(employee)
+                }
+            }
+            didGetAllEmployees = true
+        }
+        
+        filteredEmployees = allEmployees.filter { $0.lowercased().contains(searchText.lowercased()) }
+        
         tableView.reloadData()
     }
     
@@ -105,6 +114,5 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
 extension TableOneViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
-        
     }
 }

@@ -83,10 +83,10 @@ class CounselorViewController: UIViewController, MFMailComposeViewControllerDele
         // sets the rest of the properties to storyboard elements
         job.text = newArray[1]
         email.setTitle(newArray[2], for: UIControlState())
-        phone.setTitle("will totally deal with this later", for: UIControlState())
+        phone.setTitle("improper formatting for phone #", for: UIControlState())
         //phone.setTitle("(\(phoneNumber1)) \(phoneNumber2)-\(phoneNumber3)", for: UIControlState())
         //ext.text = "Ext: " + newArray[4]
-        ext.text = "shhhhhh"
+        ext.text = "will be dealt with later?"
         
         
         navigationItem.title = newArray[0]

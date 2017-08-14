@@ -20,7 +20,7 @@ class EmployeeList {
     let oneElementsArray: [String] =  ["Superintendent", "Deputy Superintendent", "Administrative Services", "Curriculum and Instruction", "Education Services", "Human Resources", "Special Education"] // Departments
     
     
-    //order for all the following properties matters cause they need to correspond with eachother
+    // order for all the following properties matters cause they need to correspond with eachother
     
     // newArrays is an array of arrays of the names of all the employees, the outter array is by department
     var newArrays: [[String]?] = []

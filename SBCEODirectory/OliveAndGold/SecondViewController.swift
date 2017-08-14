@@ -19,7 +19,6 @@ class SecondViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     // designates the length of the table view
@@ -60,9 +59,5 @@ class SecondViewController: UITableViewController {
             backItem.title = "Back"
             navigationItem.backBarButtonItem = backItem
         }
-        
-       
-        }
     }
-
-
+}
