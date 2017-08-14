@@ -43,7 +43,6 @@ class EmployeeList {
         employeeDictionary = [String: [EmployeeData]]()
         subsectionTemp = [EmployeeData]()
         ref = Database.database().reference()
-        ref = nil
         
         if let reference = ref {
             reference.child("employeeList").observeSingleEvent(of: .value, with: { snapshot in
@@ -71,7 +70,7 @@ class EmployeeList {
         let data = NSKeyedArchiver.archivedData(withRootObject: employeeDictionary)
         defaults.set(data, forKey: "employeeDictionary")
         
-        let employeeList = EmployeeList.sharedInstance.employeeDictionary
+        let employeeList = employeeDictionary
         
         populateCells(with: employeeList)
     }
