@@ -10,31 +10,42 @@ import MessageUI
 
 class TableOneViewController: UITableViewController, MFMailComposeViewControllerDelegate {
     
+    
     let searchController = UISearchController(searchResultsController: nil)
     
     
-    var employees = [String!]()
-    var employeesTemp = CellElements.sharedInstance.newArrays
+    var allEmployees = [String!]()
+    var employeesTemp = EmployeeList.sharedInstance.newArrays
     
     var filteredEmployees = [String!]()
     
+    var didGetAllEmployees = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
         
-        for catagories in employeesTemp {
-            for employee in catagories! {
-                employees.append(employee)
-            }
-        }
     }
     
     func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredEmployees = employees.filter { $0.lowercased().contains(searchText.lowercased()) }
+        // for some reason when we first grabbed the new arrays from the shared instance it was just empty so we need to regrab it here and then we can properly fill allEmployees so the search can work properly
+        if !didGetAllEmployees {
+            employeesTemp = EmployeeList.sharedInstance.newArrays
+            for division in employeesTemp {
+                for employee in division! {
+                    allEmployees.append(employee)
+                }
+            }
+            didGetAllEmployees = true
+        }
+        
+        filteredEmployees = allEmployees.filter { $0.lowercased().contains(searchText.lowercased()) }
+        
         tableView.reloadData()
     }
     
@@ -42,28 +53,30 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         super.didReceiveMemoryWarning()
     }
     
+    // designates the length of the table view, ie. number of cells
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         if searchController.isActive && searchController.searchBar.text != "" {
             return filteredEmployees.count
         }
-        return CellElements.sharedInstance.oneElementsArray.count
+        return EmployeeList.sharedInstance.oneElementsArray.count
     }
     
+    // fills the cells with proper label or somthing like that
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ElementRow", for: indexPath)
         let label = cell.viewWithTag(11) as! UILabel
-        let categories = CellElements.sharedInstance.oneElementsArray
+        let categories = EmployeeList.sharedInstance.oneElementsArray
         
         if searchController.isActive && searchController.searchBar.text != "" {
             label.text = filteredEmployees[indexPath.row]
         } else {
-            label.text = categories?[indexPath.row]
+            label.text = categories[indexPath.row]
         }
         return cell
     }
     
+    // because of the search, when a row is tapped it needs different instructions to get to the next viewController
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         //if search bar isnt empty skip the second vc
         if searchController.isActive && searchController.searchBar.text != "" {
             performSegue(withIdentifier: "pushToEmployeeView", sender: tableView.cellForRow(at: indexPath))
@@ -74,20 +87,19 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
         }
     }
     
+    // see what segue is going and then appropriatly set values into the new viewControler
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         //check which segue it is and give info as necessary
         if segue.identifier == "pushToSecondView"{
             let secondCells = segue.destination as! SecondViewController
-//            let cellRow = sender as! UITableViewCell
             let rowNum = tableView.indexPath(for: sender as! UITableViewCell)?.row
-            let categories = CellElements.sharedInstance.oneElementsArray
+            let categories = EmployeeList.sharedInstance.oneElementsArray
 
-            secondCells.navigationItem.title = categories?[rowNum!]
-            secondCells.cellArray = CellElements.sharedInstance.newArrays[rowNum!]
+            secondCells.navigationItem.title = categories[rowNum!]
+            secondCells.cellArray = EmployeeList.sharedInstance.newArrays[rowNum!]
             secondCells.firstTableNum = rowNum
         }
         else if segue.identifier == "pushToEmployeeView"{
-            //fix this to go to the next view, I really dont know how
             let controller = segue.destination as! CounselorViewController
             let rowNum = tableView.indexPath(for: sender as! UITableViewCell)?.row
             
@@ -102,7 +114,5 @@ class TableOneViewController: UITableViewController, MFMailComposeViewController
 extension TableOneViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
-        
-        //self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
     }
 }

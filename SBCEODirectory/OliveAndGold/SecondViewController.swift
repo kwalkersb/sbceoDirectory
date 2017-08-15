@@ -19,12 +19,9 @@ class SecondViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if cell != nil {
-            //[self.performSegue(withIdentifier: "pushToThird", sender: cell)]
-            // i commented this out cause yellow error message and it didnt seem like it was doing anything
-        }
     }
     
+    // designates the length of the table view
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if cellArray == nil {
             return 1;
@@ -34,6 +31,7 @@ class SecondViewController: UITableViewController {
         }
     }
     
+    // fills the cell with the correct label and whatnot
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SecondaryCells", for: indexPath)
         let label = cell.viewWithTag(5) as! UILabel
@@ -46,6 +44,8 @@ class SecondViewController: UITableViewController {
         return cell
     }
     
+    
+    //sets up the next view controller with the name and employee info
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "pushToThird"{
             let controller = segue.destination as! CounselorViewController
@@ -59,9 +59,5 @@ class SecondViewController: UITableViewController {
             backItem.title = "Back"
             navigationItem.backBarButtonItem = backItem
         }
-        
-       
-        }
     }
-
-
+}
